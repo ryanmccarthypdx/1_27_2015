@@ -1,0 +1,40 @@
+<h1>Big Hairy Ron's World of Merkins</h1>
+
+<h4>Add a Merkin model:</h4>
+<form action="/product_add" method="post">
+  <label for="name">Merkin model name:</label>
+  <input id="name" name="name" type="text" placeholder='The Executive'>
+  <label for="price">Price: $</label>
+  <input id="price" name="price" type="text" placeholder='99.99'>
+  <button type="submit" class="btn btn-primary">Create Merkin</button>
+</form>
+
+<% if Product.all().any?() %>
+  <h3>Here are the merkins we sell:</h3>
+  <p>
+      Click on the Merkins you're interested in. We're like Zappos, we accept returns on used products.
+  </p>
+  <form action="/purchase_add" method="post">
+    <% Product.all().each() do |product| %>
+      <div class="checkbox">
+          <label>
+              <input type="checkbox" name="product_array[]" value="<%= product.id() %>">
+              <%= product.name() %>, $<%= product.price() %>
+          </label>
+      </div>
+      <% end %>
+      <label for="date">Purchase Date: </label>
+      <input id="date" name="date" type="text" placeholder='2015/01/25'>
+    <button type="submit" class="btn btn-primary">Purchase</button>
+  </form>
+
+<% else %>
+
+  <h3>Sorry! The merkin boat hasn't come in yet.</h3>
+
+<% end %>
+
+<h3>Purchases</h3>
+<% Purchase.all().each() do |purchase| %>
+  <li><%= purchase.date %>, $<%= purchase.grand_total() %></li>
+<% end %>
