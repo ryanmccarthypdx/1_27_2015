@@ -11,15 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127195332) do
+ActiveRecord::Schema.define(version: 20150127222440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "product_purchases", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "purchase_id"
-  end
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -29,9 +24,13 @@ ActiveRecord::Schema.define(version: 20150127195332) do
     t.datetime "updated_at"
   end
 
+  create_table "products_purchases", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "purchase_id"
+  end
+
   create_table "purchases", force: :cascade do |t|
-    t.date    "date"
-    t.decimal "grand_total", precision: 7, scale: 2
+    t.date "date"
   end
 
 end

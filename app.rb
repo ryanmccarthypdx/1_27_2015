@@ -27,7 +27,7 @@ post('/purchase_add') do
   product_array.each() do |product_id|
     grand_total += (Product.find(product_id).price())
   end
-  new_purchase = Purchase.create({:date => date, :grand_total => grand_total})
+  new_purchase = Purchase.create({:date => date, :grand_total => grand_total, :product_ids => product_array})
   new_purchase_id = new_purchase.id()
   product_array.each() do |product_id|
     Product_Purchase.create({:product_id => product_id, :purchase_id => new_purchase_id })
