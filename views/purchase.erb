@@ -1,0 +1,12 @@
+<h2>Invoice details</h2>
+<h4>Invoice date: <%= @purchase.date() %></h4>
+<h4>Items purchased:</h4>
+<ul>
+  <% @product_array.each() do |product| %>
+    <li><%= product.name %>, $<%= product.price() %></li>
+  <% end %>
+</ul>
+
+<h4>Grand Total: $<%= @grand_total %></h4>
+
+<a href="/">Back Home</a>

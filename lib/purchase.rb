@@ -1,5 +1,7 @@
 class Purchase < ActiveRecord::Base
   has_and_belongs_to_many :products
+  scope :between, lambda{|start_date, end_date| where("date = :start_date AND date = :end_date", :start_date => start_date, :end_date => end_date)}
+
 
   define_method(:products) do
     answers = []

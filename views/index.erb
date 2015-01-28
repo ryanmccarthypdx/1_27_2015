@@ -18,7 +18,7 @@
     <% Product.all().each() do |product| %>
       <div class="checkbox">
           <label>
-              <input type="checkbox" name="product_array[]" value="<%= product.id() %>">
+              <input type="checkbox" name="product_ids_array[]" value="<%= product.id() %>">
               <%= product.name() %>, $<%= product.price() %>
           </label>
       </div>
@@ -34,7 +34,8 @@
 
 <% end %>
 
-<h3>Purchases</h3>
+<h3>Past Purchases:</h3>
+<p>Click to edit</p>
 <% Purchase.all().each() do |purchase| %>
-  <li><%= purchase.date %>, $<%= purchase.grand_total() %></li>
+  <li><a href='/purchases/<%= purchase.id() %>'><%= purchase.date %>, $<%= purchase.grand_total() %></a></li>
 <% end %>

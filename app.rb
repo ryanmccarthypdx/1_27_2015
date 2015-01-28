@@ -6,6 +6,7 @@ require("./lib/product")
 require("./lib/purchase")
 require("./lib/product_purchase")
 require("pg")
+require('pry')
 
 get('/') do
   @product_list = Product.all()
@@ -22,16 +23,20 @@ end
 
 post('/purchase_add') do
   date = params.fetch('date')
-  product_array = params.fetch("product_array")
-  grand_total = 0
-  product_array.each() do |product_id|
-    grand_total += (Product.find(product_id).price())
-  end
-  new_purchase = Purchase.create({:date => date, :grand_total => grand_total, :product_ids => product_array})
-  new_purchase_id = new_purchase.id()
-  product_array.each() do |product_id|
-    Product_Purchase.create({:product_id => product_id, :purchase_id => new_purchase_id })
-  end
-
-  redirect back
+  product_ids_array = params.fetch("product_ids_array")
+  @purchase = Purchase.create({:date => date, :product_ids => product_ids_array})
+  @product_array = @purchase.products()
+  @grand_total = @purchase.grand_total()
+  erb(:purchase)
 end
+
+get('/purchases/:id') do
+  @purchase_id = params.fetch("id")
+  @purchase = Purchase.find(@purchase_id)
+  @product_array = @purchase.products()
+  @grand_total = @purchase.grand_total()
+  erb(:purchase)
+end
+
+
+# @sorted_dates = Purchase.between(params.fetch(), params.fetch()).all()
